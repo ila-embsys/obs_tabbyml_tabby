@@ -1,0 +1,48 @@
+<services>
+    <service name="obs_scm">
+        <param name="url">https://github.com/TabbyML/tabby</param>
+        <param name="scm">git</param>
+        <param name="revision">v0.17.0</param>
+        <!-- <param name="versionformat">@PARENT_TAG@+@TAG_OFFSET@</param> -->
+        <param name="versionformat">@PARENT_TAG@</param>
+        <param name="versionrewrite-pattern">v(.*)</param>
+        <param name="versionrewrite-replacement">\1</param>
+        <param name="changesgenerate">enable</param>
+        <param name="filename">tabby</param>
+        <param name="without-version">true</param>
+        <param name="exclude">.changes**</param>
+        <param name="exclude">.github**</param>
+        <param name="exclude">ci**</param>
+        <param name="exclude">docker**</param>
+        <param name="exclude">rules**</param>
+        <param name="exclude">website**</param>
+        <param name="exclude">.changie.yaml</param>
+        <param name="exclude">.dockerignore</param>
+        <param name="exclude">.gitattributes</param>
+        <param name="exclude">.gitignore</param>
+        <param name="exclude">.gitmodules</param>
+        <param name="exclude">.rustfmt.toml</param>
+        <param name="exclude">codecov.yaml</param>
+        <param name="exclude">sgconfig.yml</param>
+        <param name="exclude">turbo.json</param>
+    </service>
+    <!--
+        Set manual mode and run the service locally until OBS instance
+        upgrade cargo_vendor to support "src" parameter
+    -->
+    <service name="cargo_vendor" mode="manual">
+        <param name="src">tabby</param>
+        <param name="cargotoml">Cargo.toml</param>
+        <!-- <param name="update">false</param> -->
+        <param name="i-accept-the-risk">RUSTSEC-2023-0071</param>
+    </service>
+    <service name="set_version" />
+    <service name="tar" mode="buildtime">
+        <param name="obsinfo">tabby.obsinfo</param>
+        <!-- <param name="version">_none_</param> -->
+    </service>
+    <service name="recompress" mode="buildtime">
+        <param name="file">tabby-*.tar</param>
+        <param name="compression">gz</param>
+    </service>
+</services>

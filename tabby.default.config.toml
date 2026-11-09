@@ -1,0 +1,5 @@
+[model.completion.local]
+model_id = "DeepseekCoder-1.3B"
+
+[model.chat.local]
+model_id = "Qwen2-1.5B-Instruct"

@@ -1,0 +1,11 @@
+--- a/crates/llama-cpp-server/build.rs    2024-09-11 00:44:06.000000000 +0000
++++ b/crates/llama-cpp-server/build.rs    2024-09-28 04:45:30.691890276 +0000
+@@ -57,7 +57,7 @@
+         config.define("AMDGPU_TARGETS", amd_gpu_targets.join(";"));
+     }
+     if cfg!(feature = "vulkan") {
+-        config.define("LLAMA_VULKAN", "ON");
++        config.define("GGML_VULKAN", "ON");
+     }
+ 
+     let out = config.build();

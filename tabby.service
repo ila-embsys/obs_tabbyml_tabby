@@ -1,0 +1,15 @@
+[Unit]
+Description=Tabby AI coding assistant
+
+[Service]
+DynamicUser=yes
+StateDirectory=tabby
+Environment=RUST_LOG="info,warn"
+Environment=TABBY_ROOT=/var/lib/tabby
+ExecStart=/usr/bin/tabby serve --device vulkan
+Restart=on-failure
+# Better to set only necessary permissions, but how to find them?
+AmbientCapabilities=~
+
+[Install]
+WantedBy=multi-user.target
